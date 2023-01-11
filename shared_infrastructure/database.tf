@@ -42,7 +42,7 @@ resource "aws_rds_cluster" "b2c_rds_cluster" {
     max_capacity = 1.0
     min_capacity = 0.5
   }
-  tags { 
+  tags = { 
     Name = "b2c-rds-cluster" 
     clone_target = true
   }
