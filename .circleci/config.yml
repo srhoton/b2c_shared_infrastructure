@@ -41,7 +41,7 @@ workflows:
     jobs:
       - aws-cli-cred-setup:
           context: aws
-      - init-plan-shared
+      - init-plan-shared:
           requires: 
             - aws-cli-cred-setup
       - request-apply: 
