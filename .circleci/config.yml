@@ -37,19 +37,17 @@ workflows:
     jobs: 
       - aws-cli-cred-setup:
           context: aws
-  run-plan-shared: 
+  run-plan-apply-shared: 
     jobs:
       - aws-cli-cred-setup:
           context: aws
       - init-plan-shared
-  run-apply-shared: 
-    jobs:
-      - aws-cli-cred-setup:
-          context: aws
+          requires: 
+            - aws-cli-cred-setup
       - request-apply: 
           type: approval
           requires: 
-            - aws-cli-cred-setup
+            - init-plan-shared
       - apply-shared: 
           requires:
             - request-apply
