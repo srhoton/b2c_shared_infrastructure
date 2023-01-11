@@ -45,6 +45,7 @@ resource "aws_rds_cluster" "b2c_rds_cluster" {
   tags { 
     Name = "b2c-rds-cluster" 
     clone_target = true
+  }
 }
 
 resource "aws_rds_cluster_instance" "b2c_rds_instance" {
