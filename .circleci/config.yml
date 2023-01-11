@@ -32,6 +32,17 @@ jobs:
             cd shared_infrastructure
             terraform init -input=false
             terraform apply -input=false -auto-approve
+  destroy-shared: 
+    docker: 
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps: 
+      - checkout
+      - run:
+          name: terraform 
+          command: | 
+            cd shared_infrastructure
+            terraform init -input=false
+            terraform apply -destroy -input=false -auto-approve
 workflows: 
   aws-cli: 
     jobs: 
@@ -51,3 +62,14 @@ workflows:
       - apply-shared: 
           requires:
             - request-apply
+  run-destroy-shared: 
+    jobs:
+      - aws-cli-cred-setup:
+          context: aws
+      - request-destroy: 
+          type: approval
+          requires: 
+            - aws-cli-cred-setup
+      - destroy-shared: 
+          requires:
+            - request-destroy
