@@ -48,6 +48,8 @@ workflows:
           context: aws
       - request-apply: 
           type: approval
+          requires: 
+            - aws-cli-cred-setup
       - apply-shared: 
           requires:
             - request-apply
